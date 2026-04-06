@@ -4,19 +4,6 @@ Currently here is just L1 cache that I will begin to expand to larger hierarchie
 
 The basic functionality of this is that it takes some example 16 bit address (0x0000 for example) and deconstructs it by directly mapping it to a tag, index, and offset. I then compare this to each address line in my cache and see if it matches and if the valid bit is true (the valid bit prevents false hits). I then return the number of hits and misses in the pool.
 
-#include <stdio.h>
-#include <stdint.h>
-#include <math.h>
-#include <stdbool.h>
-
-#define CACHELINE 16 //defining number of cachelines I'm using for the L1 cache
-#define BYTEBLOCK 16                            
-#define ADDRESS 16 //addresses used
-#define INDEX 4 //index, offset, and tag for DMC
-#define OFFSET 4 
-#define TAG (ADDRESS - INDEX - OFFSET)
-
-/*
 Direct Mapped Cache(DMC) takes memory from main(RAM) and organizes each one
 with a unique address, composed of a tag index and offset.
 If the memory is found within the cache by its address, its
@@ -36,7 +23,21 @@ the index takes log_2 (N) bits
 then you offset is 4 bits(log_2 16), index is 6 bits (log_2 64) and tag
 is the rest (so 22 bits)
 
-*/
+Main Code Body:
+
+    #include <stdio.h>
+    #include <stdint.h>
+    #include <math.h>
+    #include <stdbool.h>
+    
+    #define CACHELINE 16 //defining number of cachelines I'm using for the L1 cache
+    #define BYTEBLOCK 16                            
+    #define ADDRESS 16 //addresses used
+    #define INDEX 4 //index, offset, and tag for DMC
+    #define OFFSET 4 
+    #define TAG (ADDRESS - INDEX - OFFSET)
+
+
 
     uint16_t get_offset(uint16_t address){
         return address & ((1 << OFFSET) - 1); //takes the address we received and masks it with the our offset. it is subtracted by 1 because since our offset is 4 bits, the maximum integer value we can have is 15 or 1111, subtracting allows us to move it from 10000 to 1111
