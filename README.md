@@ -23,6 +23,10 @@ the index takes log_2 (N) bits
 then you offset is 4 bits(log_2 16), index is 6 bits (log_2 64) and tag
 is the rest (so 22 bits)
 
+Here is a general datapath of this simulator:
+<img width="519" height="688" alt="l1_datapath" src="https://github.com/user-attachments/assets/5ba55140-7112-49ea-b989-ca3d2cbfe404" />
+
+
 Main Code Body:
 
     #include <stdio.h>
